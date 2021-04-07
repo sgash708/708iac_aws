@@ -1,6 +1,6 @@
 variable "service_name" {}
 locals {
-  name_list = ["${var.service_name}-image-app", "${var.service_name}-image-base"]
+  name_list = ["${var.service_name}-image-base", "${var.service_name}-image-app"]
 }
 
 resource "aws_codecommit_repository" "repos" {
