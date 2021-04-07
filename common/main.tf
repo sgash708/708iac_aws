@@ -33,3 +33,13 @@ module "ecr" {
   source       = "../modules/ecr"
   service_name = var.service_name
 }
+# CodeBuild
+module "codebuild" {
+  source = "../modules/codebuild"
+
+  repos_name     = module.codecommit.repositories_name
+  ecr_repos_name = module.ecr.ecr_repos_name
+  region         = var.region
+  id             = var.id
+  service_name   = var.service_name
+}
