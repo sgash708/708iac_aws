@@ -5,6 +5,13 @@
 * aws setting is done
 
 # Constitution
+## 0. TODO
+
+```bash
+$ aws confiure
+$ aws s3 mb s3://iac-code
+```
+
 ## 1. common
 * S3
 * CodeCommit
