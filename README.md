@@ -8,6 +8,7 @@
 
 ```bash
 $ aws confiure
+# bucketname is a globally unique name
 $ aws s3 mb s3://iac-code
 ```
 
