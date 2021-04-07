@@ -1,0 +1,4 @@
+.terraform
+config.tfvars
+*.pub
+.DS_Store

@@ -2,6 +2,7 @@
 * Terraform v0.13.4
 * AmazonWebService
 * you have a nice domain
+* aws setting is done
 
 # Constitution
 ## 1. common
