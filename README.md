@@ -4,13 +4,14 @@
 * you have a nice domain
 * aws setting is done
 
-# Constitution
-## 0. TODO
+# TODO
 
 ```bash
 $ aws confiure
 $ aws s3 mb s3://iac-code
 ```
+
+# Constitution
 
 ## 1. common
 * S3
