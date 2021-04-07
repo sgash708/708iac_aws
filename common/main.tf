@@ -23,3 +23,8 @@ provider "aws" {
 #####################
 # Create
 #####################
+# CodeCommit
+module "codecommit" {
+  source       = "../modules/ecr"
+  service_name = var.service_name
+}
