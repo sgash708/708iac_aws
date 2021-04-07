@@ -1,13 +1,10 @@
 variable "service_name" {}
 locals {
-  name = "${var.service_name}-image"
+  name_list = ["${var.service_name}-image-app", "${var.service_name}-image-base"]
 }
 
 resource "aws_codecommit_repository" "app" {
-  repository_name = "${local.name}-base"
-  description     = "base image code"
-}
-resource "aws_codecommit_repository" "base" {
-  repository_name = "${local.name}-app"
-  description     = "app image code"
+  count           = length(local.name_list)
+  repository_name = local.name_list[count.index]
+  description     = "local.name_list[count.index] repository"
 }
