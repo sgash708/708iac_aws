@@ -9,7 +9,7 @@ resource "aws_ecr_repository" "repos" {
 }
 
 # delete untagged image
-resource "aws_ecr_lifecycle_policy" "base" {
+resource "aws_ecr_lifecycle_policy" "policies" {
   count      = length(local.name_list)
   repository = element(aws_ecr_repository.repos.*.name, count.index)
 
