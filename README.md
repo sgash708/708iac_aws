@@ -15,6 +15,10 @@ $ aws s3 mb s3://iac-code
 # Constitution
 
 ## 1. common
+<code>terraform init --var-file=config.tfvars</code>
+<code>terraform plan --var-file=config.tfvars</code>
+<code>terraform apply --var-file=config.tfvars</code>
+
 * S3
 * CodeCommit
 * ECR
@@ -27,9 +31,15 @@ $ aws s3 mb s3://iac-code
 these files are used by different environments.
 
 ## 3. ww9
+<code>terraform init --var-file=config.tfvars</code>
+<code>terraform plan --var-file=config.tfvars</code>
+<code>terraform apply --var-file=config.tfvars</code>
 
 this is a staging environment.
 
 ### 4. www
+<code>terraform init --var-file=config.tfvars</code>
+<code>terraform plan --var-file=config.tfvars</code>
+<code>terraform apply --var-file=config.tfvars</code>
 
 this is a production environment.
