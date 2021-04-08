@@ -10,7 +10,7 @@ resource "aws_s3_bucket" "images" {
   acl    = "private"
 }
 resource "aws_s3_bucket_public_access_block" "acls" {
-  count  = length(aws_s3_bucket.images.*)
+  count  = length(aws_s3_bucket.images)
   bucket = aws_s3_bucket.images[count.index].id
 
   block_public_acls       = true
