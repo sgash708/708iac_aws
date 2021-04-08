@@ -49,3 +49,12 @@ module "s3" {
 
   service_name = var.service_name
 }
+# CodePipeline
+module "codepipeline" {
+  source = "../modules/codepipeline"
+
+  service_name        = var.service_name
+  s3bucket            = "iac-code"
+  repos_name          = module.codecommit.repositories_name
+  codebuild_apps_name = module.codebuild.codebuild_apps_name
+}
