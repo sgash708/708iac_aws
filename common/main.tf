@@ -43,3 +43,9 @@ module "codebuild" {
   id             = var.id
   service_name   = var.service_name
 }
+# S3
+module "s3" {
+  source = "../modules/s3"
+
+  service_name = var.service_name
+}
