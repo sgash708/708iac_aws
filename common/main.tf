@@ -58,3 +58,10 @@ module "codepipeline" {
   repos_name          = module.codecommit.repositories_name
   codebuild_apps_name = module.codebuild.codebuild_apps_name
 }
+# DNS(ACM/Rote53)
+module "dns" {
+  source = "../modules/dns"
+
+  service_name = var.service_name
+  domain_name  = var.domain_name
+}
