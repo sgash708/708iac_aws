@@ -2,7 +2,7 @@
 * Terraform v0.13.4
 * AmazonWebService
 * you have a nice domain
-* aws setting is done
+    * create host_zone in route53 (https://console.aws.amazon.com/route53/v2/hostedzones#)
 
 # TODO
 
