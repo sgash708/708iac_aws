@@ -28,3 +28,36 @@ provider "aws" {
 data "aws_s3_bucket" "code" {
   bucket = "iac-code"
 }
+# Route53
+data "aws_route53_zone" "apn1" {
+  name         = var.domain_name
+  private_zone = false
+}
+# ACM
+data "aws_acm_certificate" "apn1" {
+  provider = aws
+  domain   = "*.${var.domain_name}"
+}
+# Route53(Global)
+data "aws_route53_zone" "use1" {
+  provider     = aws.use1
+  name         = var.domain_name
+  private_zone = false
+}
+# ACM
+data "aws_acm_certificate" "use1" {
+  provider = aws.use1
+  domain   = "*.${var.domain_name}"
+}
+
+#####################
+# Create
+#####################
+# VPC
+module "vpc" {
+  source = "../modules/vpc"
+
+  service_name = "${var.env}-${var.service_name}"
+  cidr         = var.vpc_cidr_block
+  region       = var.region
+}
