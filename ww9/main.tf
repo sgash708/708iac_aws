@@ -61,3 +61,15 @@ module "vpc" {
   cidr         = var.vpc_cidr_block
   region       = var.region
 }
+# ALB
+module "alb" {
+  source = "../modules/alb"
+
+  env          = var.env
+  service_name = var.service_name
+  vpc_id       = module.vpc.vpc_id
+  pub_ids      = module.vpc.pub_ids
+  acm_arn      = data.aws_acm_certificate.apn1.arn
+  route53_id   = data.aws_route53_zone.apn1.id
+  route53_name = data.aws_route53_zone.apn1.name
+}
