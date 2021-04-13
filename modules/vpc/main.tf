@@ -4,6 +4,9 @@ variable "region" {}
 variable "azs" {
   default = ["ap-northeast-1a", "ap-northeast-1c", "ap-northeast-1d"]
 }
+locals {
+  des_cidr = "0.0.0.0/0"
+}
 
 #####################
 # Common
@@ -26,7 +29,7 @@ resource "aws_internet_gateway" "default" {
 }
 
 #####################
-# PublicSubnet
+# Public Settings
 #####################
 resource "aws_subnet" "publics" {
   count = length(var.azs)
@@ -50,7 +53,7 @@ resource "aws_route_table" "public" {
 # Route
 resource "aws_route" "public" {
   # allow All
-  destination_cidr_block = "0.0.0.0/0"
+  destination_cidr_block = local.des_cidr
   route_table_id         = aws_route_table.public.id
   gateway_id             = aws_internet_gateway.default.id
 }
@@ -80,4 +83,44 @@ resource "aws_nat_gateway" "nats" {
   tags = {
     Name = "${var.service_name}-${count.index + 1}"
   }
+}
+
+#####################
+# Private Settings
+#####################
+resource "aws_subnet" "privates" {
+  count = length(var.azs)
+
+  vpc_id            = aws_vpc.default.id
+  availability_zone = var.azs[count.index]
+  cidr_block        = cidrsubnet(var.cidr, 8, (count.index + 1) * 10)
+
+  tags = {
+    Name = "${var.service_name}-private-${count.index + 1}"
+  }
+}
+# RouteTable
+resource "aws_route_table" "privates" {
+  count  = length(var.azs)
+  vpc_id = aws_vpc.default.id
+
+  tags = {
+    Name = "${var.service_name}-private-${count.index + 1}"
+  }
+}
+# Route
+resource "aws_route" "privates" {
+  count = length(var.azs)
+
+  # allow All
+  destination_cidr_block = local.des_cidr
+  nat_gateway_id         = element(aws_nat_gateway.nats.*.id, count.index)
+  route_table_id         = element(aws_route_table.privates.*.id, count.index)
+}
+# Association
+resource "aws_route_table_association" "privates" {
+  count = length(var.azs)
+
+  route_table_id = element(aws_route_table.privates.*.id, count.index)
+  subnet_id      = element(aws_subnet.privates.*.id, count.index)
 }
