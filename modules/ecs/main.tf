@@ -87,7 +87,7 @@ resource "aws_ecs_task_definition" "web" {
 }
 # SecurityGroup
 resource "aws_security_group" "ecs" {
-  name        = "${local.name}-ecs"
+  name        = replace(local.name, "web", "ecs")
   description = "${var.env}_${var.service_name} ecs"
   vpc_fid     = var.vpc_id
 
