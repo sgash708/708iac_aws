@@ -73,3 +73,19 @@ module "alb" {
   route53_id   = data.aws_route53_zone.apn1.id
   route53_name = data.aws_route53_zone.apn1.name
 }
+# ECS
+module "ecs" {
+  source = "../modules/ecs"
+
+  env          = var.env
+  service_name = var.service_name
+  region       = var.region
+  id           = var.id
+  image        = var.image
+  vpc_id       = module.vpc.vpc_id
+  cidr         = var.vpc_cidr_block
+  pri_ids      = module.vpc.pri_ids
+  lb_blue_id   = module.alb.lb_target_blue_id
+  lb_listener  = module.alb.lb_listener
+  command      = var.ecs_command
+}
