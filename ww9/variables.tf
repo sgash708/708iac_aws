@@ -1,0 +1,12 @@
+variable "env" {}
+variable "id" {}
+variable "image" {}
+variable "DB_NAME" {}
+variable "DB_ROOT" {}
+variable "DB_PASSWORD" {}
+variable "vpc_cidr_block" {}
+variable "para_dir" {}
+variable "instance_class" {}
+variable "s3_img_bucket" {}
+variable "cf_name" {}
+variable "db_subnet" {}

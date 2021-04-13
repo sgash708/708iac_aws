@@ -1,0 +1,13 @@
+env            = "ww9"
+id             = "000000000000"
+image          = "000000000000.dkr.ecr.ap-northeast-1.amazonaws.com/test_service-app"
+DB_NAME        = "test_serviceDB"
+DB_ROOT        = "niceyourusername"
+DB_PASSWORD    = "youhavetomakeacomplexnicepassword"
+vpc_cidr_block = "10.50.0.0/16"
+para_dir       = "WW9"
+instance_class = "db.t3.small"
+s3_img_bucket  = "test_service-ww9-img"
+cf_name        = "test_service.testdomainissbeautiful.com"
+# after you created subnets
+db_subnet      = "subnet-00000000000000000"
