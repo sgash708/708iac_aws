@@ -9,3 +9,6 @@ variable "instance_class" {}
 variable "s3_img_bucket" {}
 variable "cf_name" {}
 variable "db_subnet" {}
+variable "region" {}
+variable "domain_name" {}
+variable "service_name" {}

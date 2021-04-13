@@ -10,3 +10,6 @@ s3_img_bucket  = "test_service-ww9-img"
 cf_name        = "test_service.testdomainissbeautiful.com"
 # after you created subnets
 db_subnet      = "subnet-00000000000000000"
+region         = "ap-northeast-1"
+service_name   = "test_service"
+domain_name    = "testdomainissbeautiful.com"
