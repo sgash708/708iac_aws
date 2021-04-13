@@ -12,3 +12,4 @@ variable "db_subnet" {}
 variable "region" {}
 variable "domain_name" {}
 variable "service_name" {}
+variable "ecs_command" {}
