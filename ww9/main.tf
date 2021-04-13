@@ -24,7 +24,7 @@ provider "aws" {
 # DONE
 #####################
 # CodeCommit/ECR/CloudWatch/CodeBuild/CodePipeline
-# S3 (i use for cloudfront's log)
+# S3 (for cloudfront's log)
 data "aws_s3_bucket" "code" {
   bucket = "iac-code"
 }
