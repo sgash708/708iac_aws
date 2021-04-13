@@ -65,3 +65,14 @@ module "dns" {
   service_name = var.service_name
   domain_name  = var.domain_name
 }
+# DNS_Global(ACM/Rote53)
+module "dns_global" {
+  source = "../modules/dns_global"
+
+  providers = {
+    aws = aws.use1
+  }
+
+  service_name = var.service_name
+  domain_name  = var.domain_name
+}
