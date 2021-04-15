@@ -1,0 +1,130 @@
+[
+    {
+        "name"     : "${basename(image)}",
+        "image"    : "${image}",
+        "essential": true,
+        "cpu": 0,
+        "mountPoints": [],
+        "volumesFrom": [],
+        "portMappings": [
+            {
+                "containerPort": 80,
+                "hostPort": 80,
+                "protocol": "tcp"
+            }
+        ],
+        "logConfiguration": {
+            "logDriver": "awslogs",
+            "options": {
+                "awslogs-group"        : "${log_group}",
+                "awslogs-region"       : "${region}",
+                "awslogs-stream-prefix": "ecs"
+            }
+        },
+        "ulimits": [
+            {
+                "name": "nofile",
+                "softLimit": 1000000,
+                "hardLimit": 1000000
+            }
+        ],
+        "secrets": [
+            {
+                "name": "APP_NAME",
+                "valueFrom": "/${ENV}/APP_NAME"
+            },
+            {
+                "name": "SITE_NAME",
+                "valueFrom": "/${ENV}/SITE_NAME"
+            },
+            {
+                "name": "APP_ENV",
+                "valueFrom": "/${ENV}/APP_ENV"
+            },
+            {
+                "name": "APP_KEY",
+                "valueFrom": "/${ENV}/APP_KEY"
+            },
+            {
+                "name": "APP_URL",
+                "valueFrom": "/${ENV}/APP_URL"
+            },
+            {
+                "name": "AWS_A_KEY_ID",
+                "valueFrom": "/${ENV}/AWS_A_KEY_ID"
+            },
+            {
+                "name": "AWS_S_A_KEY_ID",
+                "valueFrom": "/${ENV}/AWS_S_A_KEY_ID"
+            },
+            {
+                "name": "AWS_URL",
+                "valueFrom": "/${ENV}/AWS_URL"
+            },
+            {
+                "name": "AWS_BUCKET",
+                "valueFrom": "/${ENV}/AWS_BUCKET"
+            },
+            {
+                "name": "DB_DATABASE",
+                "valueFrom": "/${ENV}/DB_DATABASE"
+            },
+            {
+                "name": "DB_HOST",
+                "valueFrom": "/${ENV}/DB_HOST"
+            },
+            {
+                "name": "DB_PASSWORD",
+                "valueFrom": "/${ENV}/DB_PASSWORD"
+            },
+            {
+                "name": "DB_PORT",
+                "valueFrom": "/${ENV}/DB_PORT"
+            },
+            {
+                "name": "DB_USERNAME",
+                "valueFrom": "/${ENV}/DB_USERNAME"
+            },
+            {
+                "name": "LOG",
+                "valueFrom": "/${ENV}/LOG"
+            },
+            {
+                "name": "MAIL_ENCRYPTION",
+                "valueFrom": "/${ENV}/MAIL_ENCRYPTION"
+            },
+            {
+                "name": "MAIL_HOST",
+                "valueFrom": "/${ENV}/MAIL_HOST"
+            },
+            {
+                "name": "MAIL_PASSWORD",
+                "valueFrom": "/${ENV}/MAIL_PASSWORD"
+            },
+            {
+                "name": "MAIL_PORT",
+                "valueFrom": "/${ENV}/MAIL_PORT"
+            },
+            {
+                "name": "MAIL_USERNAME",
+                "valueFrom": "/${ENV}/MAIL_USERNAME"
+            },
+            {
+                "name": "GOOGLE_API_KEY",
+                "valueFrom": "GOOGLE_API_KEY"
+            },
+            {
+                "name": "AUTH_BASIC_USERNAME",
+                "valueFrom": "AUTH_BASIC_USERNAME"
+            },
+            {
+                "name": "AUTH_BASIC_PASSWORD",
+                "valueFrom": "AUTH_BASIC_PASSWORD"
+            }
+        ],
+        "environment" : [],
+        "workingDirectory": "/var/www/html",
+        "entryPoint": ["sh", "-c"],
+        "command": ["${command}"]
+    }
+]

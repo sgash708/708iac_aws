@@ -2,6 +2,7 @@ variable "env" {}
 variable "service_name" {}
 variable "region" {}
 variable "id" {}
+variable "image" {}
 variable "vpc_id" {}
 variable "cidr" {}
 variable "pri_ids" {}
@@ -89,7 +90,7 @@ resource "aws_ecs_task_definition" "web" {
 resource "aws_security_group" "ecs" {
   name        = replace(local.name, "web", "ecs")
   description = "${var.env}_${var.service_name} ecs"
-  vpc_fid     = var.vpc_id
+  vpc_id     = var.vpc_id
 
   # allow fron internet
   egress {
@@ -101,5 +102,59 @@ resource "aws_security_group" "ecs" {
 
   tags = {
     Name = "${var.service_name}-ecs"
+  }
+}
+# SecurityGroupRule
+resource "aws_security_group_rule" "ecs" {
+  security_group_id = aws_security_group.ecs.id
+
+  type      = "ingress"
+  from_port = 80
+  to_port   = 80
+  protocol  = "tcp"
+
+  cidr_blocks = [var.cidr]
+}
+# Service
+resource "aws_ecs_service" "web" {
+  name            = local.name
+  cluster         = aws_ecs_cluster.web.id
+  task_definition = aws_ecs_task_definition.web.arn
+  launch_type     = "FARGATE"
+  desired_count   = 0
+
+  deployment_minimum_healthy_percent = 100
+  deployment_maximum_percent         = 200
+  scheduling_strategy                = "REPLICA"
+  health_check_grace_period_seconds  = 300
+
+  enable_ecs_managed_tags = true
+  propagate_tags          = "SERVICE"
+
+  network_configuration {
+    security_groups  = [aws_security_group.ecs.id]
+    subnets          = flatten(var.pri_ids)
+    assign_public_ip = true
+  }
+
+  load_balancer {
+    target_group_arn = var.lb_blue_id
+    container_name   = basename(var.image)
+    container_port   = 80
+  }
+
+  deployment_controller {
+    type = "CODE_DEPLOY"
+  }
+
+  tags = {
+    service = var.service_name
+    env     = var.env
+  }
+
+  depends_on = [var.lb_listener]
+
+  lifecycle {
+    ignore_changes = [task_definition, load_balancer, desired_count]
   }
 }
