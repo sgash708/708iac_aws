@@ -89,3 +89,10 @@ module "ecs" {
   lb_listener  = module.alb.lb_listener
   command      = var.ecs_command
 }
+# AutoScaling
+module "autoscaling" {
+  source = "../modules/autoscaling"
+
+  ecs_cluster_name = module.ecs.cluster_name
+  ecs_service_name = module.ecs.service_name
+}
