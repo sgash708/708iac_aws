@@ -8,7 +8,7 @@ locals {
 }
 
 resource "aws_iam_role" "codepipeline" {
-  name = "CodePipelineServiceRole"
+  name               = "CodePipelineServiceRole"
   assume_role_policy = <<eof
 {
     "Version": "2012-10-17",
@@ -26,8 +26,8 @@ resource "aws_iam_role" "codepipeline" {
 eof
 }
 resource "aws_iam_role_policy" "codepipeline-default" {
-  name = "CodePipelineServiceRoleDefaultPolicy"
-  role = aws_iam_role.codepipeline.id
+  name   = "CodePipelineServiceRoleDefaultPolicy"
+  role   = aws_iam_role.codepipeline.id
   policy = <<EOF
 {
   "Version": "2012-10-17",
@@ -127,8 +127,8 @@ EOF
 }
 # add custom policy
 resource "aws_iam_role_policy" "codepipeline-custom" {
-  name = "CodePipelineServiceRoleCustomPolicy"
-  role = aws_iam_role.codepipeline.id
+  name   = "CodePipelineServiceRoleCustomPolicy"
+  role   = aws_iam_role.codepipeline.id
   policy = <<EOF
 {
   "Version": "2012-10-17",
@@ -236,7 +236,7 @@ resource "aws_codepipeline" "app" {
   role_arn = aws_iam_role.codepipeline.arn
 
   artifact_store {
-    type = "S3"
+    type     = "S3"
     location = var.s3bucket
   }
 
