@@ -40,6 +40,6 @@ resource "aws_route53_record" "global" {
 }
 # validation
 resource "aws_acm_certificate_validation" "global" {
-  certificate_arn = aws_acm_certificate.global.arn
+  certificate_arn         = aws_acm_certificate.global.arn
   validation_record_fqdns = [for record in aws_route53_record.global : record.fqdn]
 }
