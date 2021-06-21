@@ -31,8 +31,8 @@ resource "aws_iam_role_policy_attachment" "ecr-read-policy" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonSSMReadOnlyAccess"
 }
 resource "aws_iam_role_policy" "ecs-task" {
-  name = "ecsTaskExecutionRolePolicy"
-  role = data.aws_iam_role.ecs-task.id
+  name   = "ecsTaskExecutionRolePolicy"
+  role   = data.aws_iam_role.ecs-task.id
   policy = <<EOF
 {
   "Version": "2012-10-17",
@@ -90,7 +90,7 @@ resource "aws_ecs_task_definition" "web" {
 resource "aws_security_group" "ecs" {
   name        = replace(local.name, "web", "ecs")
   description = "${var.env}_${var.service_name} ecs"
-  vpc_id     = var.vpc_id
+  vpc_id      = var.vpc_id
 
   # allow fron internet
   egress {

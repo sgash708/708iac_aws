@@ -77,8 +77,8 @@ resource "aws_eip" "nats" {
 resource "aws_nat_gateway" "nats" {
   count = length(var.azs)
 
-  subnet_id      = element(aws_subnet.publics.*.id, count.index)
-  allocation_id  = element(aws_eip.nats.*.id, count.index)
+  subnet_id     = element(aws_subnet.publics.*.id, count.index)
+  allocation_id = element(aws_eip.nats.*.id, count.index)
 
   tags = {
     Name = "${var.service_name}-${count.index + 1}"
