@@ -28,7 +28,7 @@ resource "aws_iam_role_policy_attachment" "ecs-task" {
 }
 resource "aws_iam_role_policy_attachment" "ecr-read-policy" {
   role       = data.aws_iam_role.ecs-task.name
-  policy_arn = "arn:aws:iam::aws:policy/AmazonSSNReadOnlyAccess"
+  policy_arn = "arn:aws:iam::aws:policy/AmazonSSMReadOnlyAccess"
 }
 resource "aws_iam_role_policy" "ecs-task" {
   name = "ecsTaskExecutionRolePolicy"
