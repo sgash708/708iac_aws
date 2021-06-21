@@ -13,11 +13,11 @@ resource "aws_appautoscaling_target" "ecs" {
   }
 }
 resource "aws_appautoscaling_policy" "ecs" {
-  name = "ECSServiceAverageCPUUtilization:${aws_appautoscaling_target.ecs.resource_id}"
-  policy_type = "TargetTrackingScaling"
-  resource_id = aws_appautoscaling_target.ecs.resource_id
+  name               = "ECSServiceAverageCPUUtilization:${aws_appautoscaling_target.ecs.resource_id}"
+  policy_type        = "TargetTrackingScaling"
+  resource_id        = aws_appautoscaling_target.ecs.resource_id
   scalable_dimension = aws_appautoscaling_target.ecs.scalable_dimension
-  service_namespace = aws_appautoscaling_target.ecs.service_namespace
+  service_namespace  = aws_appautoscaling_target.ecs.service_namespace
 
   target_tracking_scaling_policy_configuration {
     predefined_metric_specification {
