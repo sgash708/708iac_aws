@@ -33,8 +33,8 @@ resource "aws_iam_role_policy_attachment" "codebuild" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryPowerUser"
 }
 resource "aws_iam_role_policy" "codebuild" {
-  name = "CodeBuildServiceRolePolicy"
-  role = aws_iam_role.codebuild.id
+  name   = "CodeBuildServiceRolePolicy"
+  role   = aws_iam_role.codebuild.id
   policy = <<EOF
 {
   "Version": "2012-10-17",
@@ -75,7 +75,7 @@ resource "aws_codebuild_project" "applications" {
   name        = var.repos_name[count.index]
   description = "Building image for ${var.repos_name[count.index]}"
 
-  service_role  = aws_iam_role.codebuild.arn
+  service_role = aws_iam_role.codebuild.arn
   # 10minutes
   build_timeout = 10
 
