@@ -19,8 +19,8 @@ resource "aws_security_group" "alb" {
 
   # allow from internet
   egress {
-    from_port   = 0
-    to_port     = 0
+    from_port = 0
+    to_port   = 0
     # allow all protocols
     protocol    = "-1"
     cidr_blocks = [local.des_cidr]
@@ -82,16 +82,16 @@ resource "aws_lb_target_group" "ecs-web" {
 
   # healthcheck container(ECS)
   health_check {
-    protocol              = "HTTP"
-    path                  = "/"
-    port                  = 80
-    interval              = 10
-    timeout               = 3
+    protocol = "HTTP"
+    path     = "/"
+    port     = 80
+    interval = 10
+    timeout  = 3
     # number of consective healthcheck faiures
     healthy_threshold   = 2
     unhealthy_threshold = 2
     # 401 (Basic Authentication)
-    matcher               = "200,401"
+    matcher = "200,401"
   }
 }
 # LB_Listener
